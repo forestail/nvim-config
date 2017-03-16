@@ -65,14 +65,16 @@ call dein#begin(expand('~/.vim/dein'))
 
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/vimproc.vim')
-"call dein#add('Shougo/unite.vim')
-"call dein#add('Shougo/vimfiler.vim')
+call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/denite.nvim')
+call dein#add('Shougo/vimfiler.vim')
 "call dein#add('Shougo/neocomplete.vim')
-"call dein#add('Shougo/neomru.vim')
-"call dein#add('Shougo/neoyank.vim')
+call dein#add('Shougo/neomru.vim')
+call dein#add('Shougo/neoyank.vim')
 "call dein#add('Shougo/neocomplcache')
 "call dein#add('Shougo/neosnippet')
 "call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/deoplete.nvim')
 call dein#add('itchyny/lightline.vim')
 "call dein#add('scrooloose/nerdtree')
 "call dein#add('tpope/vim-endwise')
@@ -89,6 +91,8 @@ call dein#add('deton/jasegment.vim')
 call dein#add('kana/vim-textobj-lastpat')
 "call dein#add('tpope/vim-abolish')
 "call dein#add('kana/vim-smartchr')
+call dein#add('simeji/winresizer')
+call dein#add('Shougo/vimshell.vim')
 
 call dein#end()
 " -------------dein--------------------------------
@@ -161,10 +165,9 @@ endfunction
 function! LightlineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
-
-
 " -------------lightline--------------------------------
 
+let g:python3_host_prog = 'C:\Python35\python.exe'
 
-
+let g:winresizer_start_key = '<C-T>'
 
