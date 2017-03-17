@@ -68,12 +68,13 @@ call dein#add('Shougo/vimproc.vim')
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/vimfiler.vim')
-call dein#add('Shougo/neocomplete.vim')
+"call dein#add('Shougo/neocomplete.vim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/neoyank.vim')
 "call dein#add('Shougo/neocomplcache')
 "call dein#add('Shougo/neosnippet')
 "call dein#add('Shougo/neosnippet-snippets')
+call dein#add('Shougo/deoplete.nvim')
 call dein#add('itchyny/lightline.vim')
 "call dein#add('scrooloose/nerdtree')
 "call dein#add('tpope/vim-endwise')
@@ -94,6 +95,8 @@ call dein#add('godlygeek/tabular')
 call dein#add('plasticboy/vim-markdown')
 call dein#add('kannokanno/previm')
 call dein#add('tyru/open-browser.vim')
+call dein#add('simeji/winresizer')
+call dein#add('Shougo/vimshell.vim')
 
 call dein#end()
 " -------------dein--------------------------------
@@ -166,11 +169,7 @@ endfunction
 function! LightlineMode()
   return winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
-
-
 " -------------lightline--------------------------------
-
-let g:python3_host_prog = 'C:\\Python35\\python.exe'
 
 "フォント設定
 set guifont="Ricty Diminished":h12
@@ -187,6 +186,9 @@ cnoremap <C-n> <Down>
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 
 
+let g:python3_host_prog = 'C:\Python35\python.exe'
+let g:winresizer_start_key = '<C-T>'
+
 xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
 xnoremap # :<C-u>call<SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
 
@@ -200,3 +202,4 @@ endfunction
 "&だけで前回のオプションも含めた同じ置換実行
 nnoremap & :&&<CR>
 xnoremap & :&&<CR>
+
