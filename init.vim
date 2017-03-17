@@ -10,7 +10,7 @@ set smartcase
 " 編集に関する設定:
 "
 " タブの画面上での幅
-set tabstop=8
+set tabstop=4
 " タブをスペースに展開しない (expandtab:展開する)
 set noexpandtab
 " 自動的にインデントする (noautoindent:インデントしない)
@@ -65,11 +65,12 @@ call dein#begin(expand('~/.vim/dein'))
 
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/vimproc.vim')
-"call dein#add('Shougo/unite.vim')
-"call dein#add('Shougo/vimfiler.vim')
-"call dein#add('Shougo/neocomplete.vim')
-"call dein#add('Shougo/neomru.vim')
-"call dein#add('Shougo/neoyank.vim')
+call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/denite.nvim')
+call dein#add('Shougo/vimfiler.vim')
+call dein#add('Shougo/neocomplete.vim')
+call dein#add('Shougo/neomru.vim')
+call dein#add('Shougo/neoyank.vim')
 "call dein#add('Shougo/neocomplcache')
 "call dein#add('Shougo/neosnippet')
 "call dein#add('Shougo/neosnippet-snippets')
@@ -81,14 +82,18 @@ call dein#add('itchyny/lightline.vim')
 call dein#add('tpope/vim-commentary')
 call dein#add('kana/vim-textobj-user')
 call dein#add('kana/vim-textobj-entire')
-"call dein#add('mattn/emmet-vim')
+call dein#add('mattn/emmet-vim')
 call dein#add('tpope/vim-surround')
 "call dein#add('tpope/vim-unimpaired')
-"call dein#add('twitvim/twitvim')
 call dein#add('deton/jasegment.vim')
 call dein#add('kana/vim-textobj-lastpat')
-"call dein#add('tpope/vim-abolish')
-"call dein#add('kana/vim-smartchr')
+call dein#add('tpope/vim-abolish')
+call dein#add('kana/vim-smartchr')
+
+call dein#add('godlygeek/tabular')
+call dein#add('plasticboy/vim-markdown')
+call dein#add('kannokanno/previm')
+call dein#add('tyru/open-browser.vim')
 
 call dein#end()
 " -------------dein--------------------------------
@@ -165,6 +170,33 @@ endfunction
 
 " -------------lightline--------------------------------
 
+let g:python3_host_prog = 'C:\\Python35\\python.exe'
+
+"フォント設定
+set guifont="Ricty Diminished":h12
+"Guifont! Ricty Diminished:h12
 
 
+au BufRead,BufNewFile *.md set filetype=markdown
+let g:previm_open_cmd = 'C:/Program\ Files/Google/Chrome/Application/chrome.exe'
 
+"実践Vimからの有益な設定
+set history=200
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+
+
+xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call<SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
+
+function! s:VSetSearch()
+  let temp = @s
+  norm! gv"sy
+  let @/ = '\V' . substitute(escape(@s,'/\'),'\n','\\n','g')
+  let @s = temp
+endfunction
+
+"&だけで前回のオプションも含めた同じ置換実行
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
