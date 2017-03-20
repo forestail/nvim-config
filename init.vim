@@ -1,3 +1,8 @@
+set encoding=utf-8
+scriptencoding utf-8
+"全体に関する設定
+let g:mapleader = " "
+"map <Leader>a ggVG
 "---------------------------------------------------------------------------
 " 検索の挙動に関する設定:
 "
@@ -25,12 +30,21 @@ set showmatch
 set wildmenu
 " テキスト挿入中の自動折り返しを日本語に対応させる
 set formatoptions+=mM
-
+"Shift-Insertでクリップボード貼り付け(insert mode)
+inoremap <silent> <S-Insert> <C-r>+
+"Ctrl-Insertでクリップボードコピー(visual mode)
+vnoremap <silent> <C-Insert> "+y
+"マウス操作を有効にする
+set mouse=a
 "---------------------------------------------------------------------------
 " GUI固有ではない画面表示の設定:
 "
 " 行番号を非表示 (number:表示)
-set number
+"set number
+" 行番号を相対表示
+set relativenumber number
+"F3で通常の行番号表示とトグル
+nnoremap <F3> :<C-u>setlocal relativenumber!<CR>
 " ルーラーを表示 (noruler:非表示)
 set ruler
 " タブや改行を表示 (list:表示)
@@ -76,23 +90,32 @@ call dein#add('Shougo/neoyank.vim')
 "call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('itchyny/lightline.vim')
-"call dein#add('scrooloose/nerdtree')
+call dein#add('scrooloose/nerdtree')
 "call dein#add('tpope/vim-endwise')
 ""call dein#add('tomtom/tcomment_vim')
 "call dein#add('vim-syntastic/syntastic')
 call dein#add('tpope/vim-commentary')
 call dein#add('kana/vim-textobj-user')
 call dein#add('kana/vim-textobj-entire')
-"call dein#add('mattn/emmet-vim')
+call dein#add('mattn/emmet-vim')
 call dein#add('tpope/vim-surround')
 "call dein#add('tpope/vim-unimpaired')
-"call dein#add('twitvim/twitvim')
+call dein#add('twitvim/twitvim')
 call dein#add('deton/jasegment.vim')
 call dein#add('kana/vim-textobj-lastpat')
-"call dein#add('tpope/vim-abolish')
-"call dein#add('kana/vim-smartchr')
+call dein#add('tpope/vim-abolish')
+call dein#add('kana/vim-smartchr')
+call dein#add('godlygeek/tabular')
+call dein#add('plasticboy/vim-markdown')
+call dein#add('kannokanno/previm')
+call dein#add('tyru/open-browser.vim')
 call dein#add('simeji/winresizer')
 call dein#add('Shougo/vimshell.vim')
+"call dein#add('haya14busa/vim-migemo')
+call dein#add('rhysd/migemo-search.vim')
+call dein#add('rhysd/vim-textobj-ruby')
+call dein#add('pekepeke/vim-csvutil')
+call dein#add('pekepeke/vim-operator-tabular')
 
 call dein#end()
 " -------------dein--------------------------------
@@ -111,7 +134,7 @@ let g:lightline = {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'filename' ] ],
 	\   'right': [	[ 'lineinfo', 'syntastic' ],
 	\		[ 'percent' ],
-	\		[ 'fileformat', 'fileencoding', 'filetyle']]
+	\		[ 'fileformat', 'fileencoding', 'filetype']]
         \ },
         \ 'component_function': {
         \   'modified': 'LightlineModified',
@@ -170,4 +193,55 @@ endfunction
 let g:python3_host_prog = 'C:\Python35\python.exe'
 
 let g:winresizer_start_key = '<C-T>'
+
+
+"---------------------------------------------------------------------------
+" ウインドウに関する設定:
+"
+" ウインドウの幅
+set columns=120
+" ウインドウの高さ
+set lines=40
+" コマンドラインの高さ(GUI使用時)
+set cmdheight=2
+" 画面を黒地に白にする (次行の先頭の " を削除すれば有効になる)
+colorscheme darkblue " (GUI使用時)
+"---------------------------------------------------------------------------
+
+"migemo
+"let g:migemodict = '$VIM/runtime/dict/utf-8/migemo-dict'
+let g:migemosearch_migemodict = '$VIM/runtime/dict/utf-8/migemo-dict'
+if executable('cmigemo')
+    cnoremap <expr><CR> migemosearch#replace_search_word()."\<CR>"
+endif
+
+"---------------------------------------------------------------------------
+"実践Vimからの有益な設定
+set history=200
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+
+
+let g:python3_host_prog = 'C:\Python35\python.exe'
+let g:winresizer_start_key = '<C-T>'
+
+xnoremap * :<C-u>call <SID>VSetSearch()<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call<SID>VSetSearch()<CR>?<C-R>=@/<CR><CR>
+
+function! s:VSetSearch()
+  let temp = @s
+    norm! gv"sy
+      let @/ = '\V' . substitute(escape(@s,'/\'),'\n','\\n','g')
+        let @s = temp
+	endfunction
+
+	"&だけで前回のオプションも含めた同じ置換実行
+	nnoremap & :&&<CR>
+	xnoremap & :&&<CR>
+
+"---------------------------------------------------------------------------
+
+
+
 
