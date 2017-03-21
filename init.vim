@@ -15,7 +15,7 @@ set smartcase
 " 編集に関する設定:
 "
 " タブの画面上での幅
-set tabstop=8
+set tabstop=4
 " タブをスペースに展開しない (expandtab:展開する)
 set noexpandtab
 " 自動的にインデントする (noautoindent:インデントしない)
@@ -114,8 +114,7 @@ call dein#add('Shougo/vimshell.vim')
 "call dein#add('haya14busa/vim-migemo')
 call dein#add('rhysd/migemo-search.vim')
 call dein#add('rhysd/vim-textobj-ruby')
-call dein#add('pekepeke/vim-csvutil')
-call dein#add('pekepeke/vim-operator-tabular')
+call dein#add('fuenor/qfixhowm')
 
 call dein#end()
 " -------------dein--------------------------------
@@ -190,8 +189,22 @@ function! LightlineMode()
 endfunction
 " -------------lightline--------------------------------
 
-let g:python3_host_prog = 'C:\Python35\python.exe'
+"フォント設定
+set guifont="Ricty Diminished":h12
+"Guifont! Ricty Diminished:h12
 
+
+au BufRead,BufNewFile *.md set filetype=markdown
+let g:previm_open_cmd = 'C:/Program\ Files/Google/Chrome/Application/chrome.exe'
+
+"実践Vimからの有益な設定
+set history=200
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+
+
+let g:python3_host_prog = 'C:\Python35\python.exe'
 let g:winresizer_start_key = '<C-T>'
 
 
@@ -242,6 +255,22 @@ function! s:VSetSearch()
 
 "---------------------------------------------------------------------------
 
+"---------------------------------------------------------------------------
+"Howm設定
+" キーマップリーダー
+let QFixHowm_Key = 'g'
 
+" howm_dirはファイルを保存したいディレクトリを設定
+let howm_dir             = '~/.howm'
+let howm_filename        = '%Y/%m/%Y-%m-%d-%H%M%S.txt'
+let howm_fileencoding    = 'utf-8'
+let howm_fileformat      = 'dos'
+" 休日定義ファイル
+let QFixHowm_HolidayFile = '~/.howm/Sche-Hd-0000-00-00-000000.txt'
 
+" キーコードやマッピングされたキー列が完了するのを待つ時間(ミリ秒)
+set timeout timeoutlen=3000 ttimeoutlen=100
 
+" プレビューや絞り込みをQuickFix/ロケーションリストの両方で有効化(デフォルト:2)
+let QFixWin_EnableMode = 1
+"---------------------------------------------------------------------------
